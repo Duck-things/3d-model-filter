@@ -79,7 +79,7 @@ You should see something like `Python 3.10.0`. If you get an error, Python isn't
 After downloading/cloning this repo, open a terminal and navigate to the training folder:
 
 ```bash
-cd 3d-model-filter/training
+cd  (where your file is located)/3d-model-filter/training
 ```
 
 ### 1.2 Create a Virtual Environment
