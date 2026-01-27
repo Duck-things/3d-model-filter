@@ -6,7 +6,8 @@
 [![Tampermonkey](https://img.shields.io/badge/Tampermonkey-Compatible-green.svg)](https://www.tampermonkey.net/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
-![Demo Screenshot](images/demo-screenshot.png)
+## This is somewhat what the filter should look like based on the version you installed
+<img width="376" height="788" alt="Image" src="https://github.com/user-attachments/assets/909c502c-b462-48c2-be8c-5ac7a4673606" />
 
 ## 🎯 Why I Built This
 
