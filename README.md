@@ -46,7 +46,7 @@ The built-in filters on these sites don't work well (or don't exist), so I built
 Click to install directly:
 
 - [📦 Basic Version](../../raw/main/scripts/ai-model-filter.user.js) - Tag detection only
-- [📦 Advanced Version](../../raw/main/scripts/ai-model-filter-advanced.user.js) - **Recommended** - Smart detection + whitelist
+- [📦 Advanced Version](ai-model-filter-advanced.user.js) - **Recommended** - Smart detection + whitelist
 - [📦 ML Version](../../raw/main/scripts/ai-model-filter-ml.user.js) - TensorFlow.js powered
 
 Or manually copy the script contents into Tampermonkey.
