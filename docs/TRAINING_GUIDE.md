@@ -112,6 +112,7 @@ If you have not added Python to your PATH, run:
 ```bash
 cd training
 py -m pip install -r requirements.txt
+```
 
 This takes a few minutes. Lots of text will scroll by - totally normal!
 
