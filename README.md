@@ -57,7 +57,13 @@ Click one of these links to install directly:
 3. Copy and paste the contents of your chosen script from the `scripts/` folder
 4. Press `Ctrl+S` (or `Cmd+S` on Mac) to save
 
-### Step 3: Use It!
+### Step 3: allow user scripts for the extension
+1. Right-click the extension
+2. Click manage extentions
+3. Allow User Scripts
+If it wont work even after you allowed User Scripts, try closing and reopening your browser!
+
+### Step 4: Use It!
 
 1. Go to [MakerWorld](https://makerworld.com), [Printables](https://printables.com), or [Thangs](https://thangs.com)
 2. You'll see a control panel in the bottom-right corner
