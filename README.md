@@ -6,7 +6,7 @@
 [![Tampermonkey](https://img.shields.io/badge/Tampermonkey-Compatible-green.svg)](https://www.tampermonkey.net/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
-![Demo Screenshot](<img width="376" height="788" alt="Image" src="https://github.com/user-attachments/assets/5c6df429-4802-4bf5-84e6-b59110debe23" />)
+<img width="376" height="788" alt="Image" src="https://github.com/user-attachments/assets/5c6df429-4802-4bf5-84e6-b59110debe23" />
 
 ## 🎯 Why I Built This
 
