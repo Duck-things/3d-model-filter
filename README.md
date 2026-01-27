@@ -61,6 +61,7 @@ Click one of these links to install directly:
 1. Right-click the extension
 2. Click manage extentions
 3. Allow User Scripts
+
 If it wont work even after you allowed User Scripts, try closing and reopening your browser!
 
 ### Step 4: Use It!
