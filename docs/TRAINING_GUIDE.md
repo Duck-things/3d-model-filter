@@ -74,13 +74,12 @@ You should see something like `Python 3.10.0`. If you get an error, Python isn't
 
 ## Step 1: Set Up Your Environment
 
-### 1.1 Create a Project Folder
+### 1.1 Navigate to the Training Folder
 
-Create a folder somewhere on your computer. I usually put mine in Documents:
+After downloading/cloning this repo, open a terminal and navigate to the training folder:
 
 ```bash
-mkdir ai-model-training
-cd ai-model-training
+cd 3d-model-filter/training
 ```
 
 ### 1.2 Create a Virtual Environment
@@ -103,24 +102,10 @@ You should see `(venv)` at the start of your command prompt now.
 
 ### 1.3 Install Required Packages
 
-Create a file called `requirements.txt` with this content:
-
-```
-tensorflow>=2.13.0
-tensorflowjs>=4.10.0
-Pillow>=9.0.0
-requests>=2.28.0
-beautifulsoup4>=4.11.0
-selenium>=4.10.0
-webdriver-manager>=3.8.0
-tqdm>=4.65.0
-numpy>=1.24.0
-matplotlib>=3.7.0
-```
-
-Then install everything:
+Navigate to the training folder and install the dependencies:
 
 ```bash
+cd training
 pip install -r requirements.txt
 ```
 
@@ -141,7 +126,7 @@ This is the most time-consuming part, but also the most important. The quality o
 
 ### Method A: Manual Collection (Simple but Slow)
 
-1. **Create your folders:**
+1. **Create your folders** (from inside the `training/` folder):
    ```bash
    mkdir -p dataset/ai_generated
    mkdir -p dataset/human_created
@@ -199,23 +184,25 @@ python collect_data.py
 Your folder structure should look like this:
 
 ```
-ai-model-training/
-├── dataset/
-│   ├── ai_generated/
-│   │   ├── ai_0001.jpg
-│   │   ├── ai_0002.jpg
-│   │   └── ... (500+ images)
-│   └── human_created/
-│       ├── human_0001.jpg
-│       ├── human_0002.jpg
-│       └── ... (500+ images)
-├── requirements.txt
-└── collect_data.py
+3d-model-filter/
+└── training/
+    ├── dataset/
+    │   ├── ai_generated/
+    │   │   ├── ai_0001.jpg
+    │   │   ├── ai_0002.jpg
+    │   │   └── ... (500+ images)
+    │   └── human_created/
+    │       ├── human_0001.jpg
+    │       ├── human_0002.jpg
+    │       └── ... (500+ images)
+    ├── requirements.txt
+    ├── train_model.py
+    └── collect_data.py
 ```
 
 ### Quick Check
 
-Count your images to make sure you have enough:
+Count your images to make sure you have enough (run from the `training/` folder):
 
 ```bash
 # Windows:
@@ -233,13 +220,13 @@ You want at least 500 in each folder. More is better - I've gotten best results 
 
 ## Step 4: Train the Model
 
-### 4.1 Get the Training Script
+### 4.1 The Training Script
 
-Copy `train_model.py` from the `training/` folder in this repo, or download it directly.
+The training script `train_model.py` is already in the `training/` folder - no need to download anything extra.
 
 ### 4.2 Run Training
 
-Make sure you're in your project folder with the virtual environment activated:
+Make sure you're in the `training/` folder with the virtual environment activated:
 
 ```bash
 python train_model.py
@@ -448,7 +435,7 @@ Your GPU doesn't have enough memory. Edit `train_model.py` and reduce batch size
 ### Data Quality Matters Most
 
 1. **Balance your dataset**: Equal numbers of AI and human images
-2. **Diversity**: Include many model types, creators, lighting conditions
+2. **Diversity**: Include many model types, creators, and lighting conditions
 3. **Clean labels**: Double-check your sorting
 4. **No duplicates**: Same image multiple times hurts training
 
