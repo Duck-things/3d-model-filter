@@ -1,266 +1,139 @@
-# 🛡️ 3D Model AI & Quality Filter
+# 3D Print AI Filter
 
-> Filter out AI-generated and low-quality 3D models from MakerWorld, Printables, and Thangs
+Filter out AI generated models from MakerWorld, Printables, and Thangs.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tampermonkey](https://img.shields.io/badge/Tampermonkey-Compatible-green.svg)](https://www.tampermonkey.net/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
-
-## This is somewhat what the filter should look like based on the version you installed
-<img width="376" height="788" alt="Image" src="https://github.com/user-attachments/assets/909c502c-b462-48c2-be8c-5ac7a4673606" />
-
-## 🎯 Why I Built This
-
-If you've browsed MakerWorld, Printables, or Thangs lately, you've probably noticed the flood of AI-generated models. I got tired of scrolling through endless low-quality "slop" just to find actual printable designs made by real people.
-
-The built-in filters on these sites don't work well (or don't exist), so I built this userscript to fix the problem. It's been a game-changer for my browsing, and hopefully it helps you too.
-
-## ✨ Features
-
-| Feature | Basic | Advanced | ML-Powered |
-|---------|:-----:|:--------:|:----------:|
-| Filter tagged AI models | ✅ | ✅ | ✅ |
-| Context-aware text analysis | ❌ | ✅ | ✅ |
-| Image/thumbnail analysis | ❌ | ✅ | ✅ |
-| Detect unlabeled AI models | ❌ | ✅ | ✅ |
-| Filter low-quality models | ❌ | ✅ | ✅ |
-| Creator whitelist | ❌ | ✅ | ✅ |
-| "Not AI" false positive button | ❌ | ✅ | ✅ |
-| Import/Export settings | ❌ | ✅ | ✅ |
-| Machine learning detection | ❌ | ❌ | ✅ |
-| Custom model support | ❌ | ❌ | ✅ |
-
-## 🚀 Quick Start
-
-### Step 1: Install Tampermonkey
-
-| Browser | Link |
-|---------|------|
-| Chrome | [Install](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) |
-| Firefox | [Install](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/) |
-| Edge | [Install](https://microsoftedge.microsoft.com/addons/detail/tampermonkey/iikmkjmpaadaobahmlepeloendndfphd) |
-| Safari | [Install](https://apps.apple.com/us/app/userscripts/id1463298887) |
-
-### Step 2: Install the Script
-
-Click to install directly:
-
-- [📦 Basic Version](../../raw/main/scripts/ai-model-filter.user.js) - Tag detection only
-- [📦 Advanced Version](ai-model-filter-advanced.user.js) - **Recommended** - Smart detection + whitelist
-- [📦 ML Version](../../raw/main/scripts/ai-model-filter-ml.user.js) - TensorFlow.js powered
-
-Or manually copy the script contents into Tampermonkey.
-
-### Step 3: Use It
-
-1. Go to [MakerWorld](https://makerworld.com), [Printables](https://printables.com), or [Thangs](https://thangs.com)
-2. Look for the control panel in the bottom-right corner
-3. Toggle filters on/off as needed
-
-## 📖 How It Works
-
-### 🏷️ Tagged AI Detection
-Catches models explicitly marked as AI:
-- AIGC badges and labels
-- AI tool names (Meshy, Tripo, Rodin, Luma, etc.)
-- AI category URLs on MakerWorld
-- "Generated with AI" type phrases
-
-### 🧠 Context-Aware Analysis (Advanced/ML)
-
-The script actually **understands context** now. It won't flag someone just because they mentioned "AI":
-
-| What they wrote | Result |
-|-----------------|--------|
-| "Made with Meshy AI" | 🚩 Flagged |
-| "Not made with AI" | ✅ Ignored |
-| "I hate AI slop, this is hand-made" | ✅ Score **reduced** |
-| "No AI involved, designed in Blender" | ✅ Score **reduced** |
-| "Anti-AI, original design" | ✅ Score **reduced** |
-
-**Human-made indicators that reduce the AI score:**
-- "hand-made", "hand-crafted"
-- "designed by me", "my own design"
-- "modeled in Blender/Fusion/ZBrush"
-- "original design"
-- "10 hours of work"
-- "sculpted", "drafted"
-
-### 🖼️ Image Analysis (Advanced/ML)
-
-Analyzes thumbnails to detect AI render characteristics:
-
-| Feature | AI Renders | Real Photos |
-|---------|-----------|-------------|
-| Smoothness | Too smooth (>0.7) | Natural texture (<0.5) |
-| Color banding | Common artifact (>0.35) | Rare (<0.2) |
-| Gradient uniformity | Unnaturally perfect | Natural variation |
-| Saturation | Often oversaturated | Normal range |
-| Edge density | Too few edges | Natural detail |
-| Texture complexity | Low (<0.12) | High (>0.25) |
-
-You can toggle image analysis on/off in the panel.
-
-### 🔧 AI Tools Detected
-
-The script recognizes 30+ AI generation tools:
-
-```
-meshy, tripo, tripo3d, rodin, luma, csm, kaedim, alpha3d,
-masterpiece studio, spline ai, point-e, shap-e, get3d,
-dreamfusion, magic3d, fantasia3d, zero123, one-2-3-45,
-wonder3d, instant3d, threestudio, text2mesh, dreamgaussian,
-gsgen, luciddreamer, gaussiandreamer, makerlab, ai scanner
-```
-
-### 👤 Creator Whitelist
-
-Know a creator is legit? Add them to your whitelist:
-- Click **Manage** in the panel
-- Type their username and press Enter
-- Their models will never be filtered
-
-Or hover over a flagged model and click the **👤** button to whitelist that creator instantly.
-
-### ✓ False Positive Reporting
-
-See a human-made model getting flagged? 
-- Hover over it and click the **✓** button
-- That specific model won't be filtered again
-- Your corrections are saved locally
-
-### 📤 Import/Export
-
-Share your whitelist or back it up:
-- **Export** - Downloads a JSON file with your whitelisted creators and marked models
-- **Import** - Load someone else's whitelist to merge with yours
-
-## ⚙️ Configuration
-
-### Filter Modes
-
-| Mode | What it does |
-|------|--------------|
-| 🏷️ Tagged AI | Only explicitly labeled AI (safest) |
-| 🔍 Suspected AI | Heuristic + image analysis detection |
-| ⚠️ Low Quality | Poor quality regardless of AI status |
-
-### Display Options
-
-| Option | Description |
-|--------|-------------|
-| **Highlight only** | Shows colored borders instead of hiding |
-| **Analyze images** | Enable/disable thumbnail analysis |
-| **Show scores** | Display AI confidence percentages |
-
-### Understanding the Stats
-
-The panel shows 4 numbers:
-- **Tagged** (purple) - Explicitly marked as AI
-- **Suspect** (pink) - Detected by heuristics/images
-- **Low Q** (orange) - Low quality models
-- **OK** (green) - Whitelisted or marked as not AI
-
-## 🌐 Supported Sites
-
-| Site | Status | Notes |
-|------|:------:|-------|
-| [MakerWorld](https://makerworld.com) | ✅ | Has AIGC labels, AI categories |
-| [Printables](https://printables.com) | ✅ | Has AI tags |
-| [Thangs](https://thangs.com) | ✅ | Aggregates multiple sources |
-
-## 📁 Files
-
-```
-scripts/
-├── ai-model-filter.user.js           # Basic - tags only
-├── ai-model-filter-advanced.user.js  # Advanced - recommended
-├── ai-model-filter-ml.user.js        # ML-powered
-└── bookmarklet.js                    # No-install version
-```
-
-## 🧠 Training Custom ML Models
-
-Want even better detection? Train your own model on a custom dataset.
-
-See **[TRAINING_GUIDE.md](docs/TRAINING_GUIDE.md)** for:
-- Step-by-step setup instructions
-- Data collection scripts
-- Python training code
-- Deployment guide
-
-## ❓ FAQ
-
-<details>
-<summary><b>A human-made model got flagged. What do I do?</b></summary>
-
-1. Hover over the model
-2. Click the **✓** button (marks it as "not AI")
-3. Or click **👤** to whitelist that creator entirely
-
-The script learns from your corrections!
-</details>
-
-<details>
-<summary><b>Why are some obvious AI models not being caught?</b></summary>
-
-- Make sure "Suspected AI" mode is enabled (it's off by default)
-- The script is intentionally conservative to avoid false positives
-- Some AI uploaders have learned to hide the signs
-</details>
-
-<details>
-<summary><b>Does this send my data anywhere?</b></summary>
-
-No. Everything runs locally in your browser. No external requests, no tracking, no analytics.
-</details>
-
-<details>
-<summary><b>Can I use this with Greasemonkey/Violentmonkey?</b></summary>
-
-Yes, it should work with any userscript manager.
-</details>
-
-<details>
-<summary><b>The panel doesn't show up</b></summary>
-
-1. Check that the script is enabled in Tampermonkey
-2. Make sure you're on a supported site
-3. Try refreshing the page
-4. Check browser console (F12) for errors
-</details>
-
-<details>
-<summary><b>How accurate is the detection?</b></summary>
-
-- **Tagged AI**: 100% (if it's labeled, we catch it)
-- **Suspected AI**: ~85-90% with image analysis enabled
-- False positive rate is low because we require multiple signals
-</details>
-
-## 🤝 Contributing
-
-Found a bug? Have a better detection pattern? PRs welcome!
-
-- **Report issues** - Help identify false positives/negatives
-- **Add patterns** - Found a new AI tool? Add it to the list
-- **Improve detection** - Better heuristics are always welcome
-- **Add sites** - Help support more 3D model repositories
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-## 📜 License
-
-MIT License - see [LICENSE](LICENSE)
-
-## 🙏 Acknowledgments
-
-- The 3D printing community for feedback and testing
-- Everyone who reported false positives to help improve detection
-- The open source community
+by Achyut Sharma
 
 ---
 
-<p align="center">
-  Made by <a href="https://github.com/achyutsharma">Achyut Sharma</a> • Star ⭐ if this helped!
-</p>
+## why i made this
+
+if youve been on makerworld lately you know what im talking about. endless AI generated garbage flooding the search results. low effort slop with stolen render images, zero print photos, copy pasted descriptions.
+
+i complained about it in a thread and got told "just scroll past it". cool thanks.
+
+so i made this instead.
+
+## what it does
+
+its a tampermonkey script that detects AI generated 3d models and filters them out. works on:
+
+- makerworld
+- printables  
+- thangs
+
+### detection methods
+
+explicit stuff (100% accurate):
+- AIGC badges/tags
+- makerworld AI category urls
+- models explicitly tagged as AI
+
+heuristic detection (pretty good but not perfect):
+- mentions of meshy, tripo, rodin, luma, and like 40 other AI tools
+- "generated", "converted from photo", "text to 3d" etc
+- generic AI-style titles like "Cute Dragon" or "3D Model of Cat"
+- image analysis (detects smooth AI renders vs real photos)
+
+also checks context so it wont flag someone who says "i didnt use AI" or "no AI was used here".
+
+### other features
+
+- creator whitelist - trust certain uploaders
+- creator blacklist - block certain uploaders  
+- mark individual models as "ok" if they get wrongly flagged
+- quality filter (optional) - hides models with no print photos, short descriptions
+- engagement filter (optional) - hide models below certain like/download counts
+- import/export your lists
+
+## install
+
+1. get tampermonkey for your browser
+   - chrome: https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo
+   - firefox: https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/
+   - edge: search for it
+
+2. click the script file and hit install
+
+3. go to makerworld or printables, youll see a panel in the bottom right
+
+## usage
+
+the panel shows counts of what its found:
+- tag = explicitly tagged AI
+- sus = suspected AI (heuristics)
+- low = low quality
+- eng = fails engagement filter
+- ok = whitelisted/marked ok
+
+toggles:
+- "tagged AI" - filter explicit AI (recommended to keep on)
+- "suspected AI" - filter heuristic detections (off by default, turn on if you want)
+- "low quality" - filter based on quality score
+- "engagement" - filter by likes/downloads/makes
+
+by default it highlights instead of hiding. you can change this in options.
+
+hover over a flagged model to see why it was flagged.
+
+buttons on each card:
+- ok = mark this model as not AI
+- + = whitelist this creator
+- x = blacklist this creator
+
+## settings
+
+threshold - how confident it needs to be to flag something (default 65%). lower = more aggressive, higher = more conservative.
+
+highlight only - shows colored borders instead of hiding. recommended so you can see whats being caught.
+
+show reasons - shows why each model was flagged when you hover
+
+analyze images - does image analysis to detect AI renders. uses a bit more cpu but catches more stuff.
+
+## the lists
+
+manage button opens the list manager.
+
+whitelist = creators you trust. their stuff never gets flagged.
+
+blacklist = creators you dont want to see. their stuff always gets hidden.
+
+you can export your lists to share with others or backup. import to load someone elses list.
+
+## false positives
+
+if a real model gets flagged:
+1. hover to see why
+2. click "ok" to mark that specific model as not AI
+3. or click "+" to whitelist the creator
+
+it learns from your corrections.
+
+## not perfect
+
+this isnt 100% accurate. some AI stuff will slip through. some real stuff might get flagged. thats why theres the correction buttons.
+
+the image analysis especially is just pattern matching - it looks for things AI renders tend to have (too smooth, weird gradients, uniform backgrounds) but real renders can have those too.
+
+## known issues
+
+- thangs has weird html, detection is less reliable there
+- some sites lazy load and you might need to scroll for it to catch everything
+- image analysis fails on some cors blocked images
+
+## todo
+
+- thingiverse support maybe
+- better thangs detection
+- more AI tools as they come out
+
+## license
+
+MIT
+
+---
+
+made by achyut sharma
+
+if this helped clean up your feed feel free to star the repo
