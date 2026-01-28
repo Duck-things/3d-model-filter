@@ -37,10 +37,10 @@ A browser userscript that detects and filters AI-generated 3D models so you can 
 ## Supported Sites
 
 | Site | Status |
-|------|:------:|
-| [MakerWorld](https://makerworld.com) | Full support |
-| [Printables](https://printables.com) | Full support |
-| [Thangs](https://thangs.com) | Partial support |
+|------|--------|
+| MakerWorld | Full support |
+| Printables | Full support |
+| Thangs | Partial support |
 
 ## Quick Start
 
@@ -103,7 +103,7 @@ Meshy, Tripo, Tripo3D, Rodin, Luma, CSM, Kaedim, Alpha3D, Masterpiece Studio, Sp
 The script analyzes thumbnail images for AI render characteristics:
 
 | Metric | AI Renders | Real Photos |
-|--------|-----------|-------------|
+|--------|------------|-------------|
 | Smoothness | Very high | Lower (texture) |
 | Color banding | Present | Absent |
 | Edge density | Low | Higher |
@@ -201,6 +201,7 @@ Their HTML structure is inconsistent. Detection works but may miss some cards.
 ## Changelog
 
 ### v3.0.0
+
 - Context-aware text analysis
 - Image analysis for AI render detection
 - Quality scoring system
@@ -211,24 +212,16 @@ Their HTML structure is inconsistent. Detection works but may miss some cards.
 - "Why flagged" tooltips
 
 ### v2.0.0
+
 - Heuristic detection
 - 50+ AI tools database
 - Configurable threshold
 
 ### v1.0.0
+
 - Basic AIGC tag detection
 - MakerWorld support
 
 ## Contributing
 
 Found a bug? Know an AI tool that should be added? Open an issue.
-
-## License
-
-MIT
-
----
-
-Made by [Achyut Sharma](https://github.com/achyutsharma)
-
-If this helped clean up your feed, consider starring the repo!
