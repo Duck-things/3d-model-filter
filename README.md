@@ -225,3 +225,39 @@ Their HTML structure is inconsistent. Detection works but may miss some cards.
 ## Contributing
 
 Found a bug? Know an AI tool that should be added? Open an issue.
+
+## HackClub!
+I’m 13 years old and I just joined this thing called Hack Club Flavortown, and it’s honestly really cool so I wanted to share.
+
+Flavortown is a Hack Club event where teens (13–18) work on CAD, hardware, and personal projects, and you earn shards for building stuff. You can then spend those shards in the Hack Club shop on real hardware 👀 like Raspberry Pi 5s, parts, tools, etc.
+
+I’m currently working on robotics projects (I built a robot that detects falls for seniors), and I REALLY want to get a Raspberry Pi 5 so I can keep building and improving my projects. The only way I can do that is by earning shards through Flavortown.
+
+If you sign up using my referral link, it helps me get closer to that goal 🙏
+👉 https://flavortown.hack.club/?ref=BZJXIBQ9
+
+What I like about the event:
+
+It’s actually made for teens, not adults
+
+You work on real projects, not boring tutorials
+
+You get rewarded for building, not just watching videos
+
+Hack Club is a real nonprofit (not a scam lol)
+
+If you’re into:
+
+CAD
+
+Robotics
+
+Coding
+
+Hardware
+
+Or just making cool stuff
+
+You should totally check it out. Even if you don’t use my link, still join — but using it would seriously help me out 🫶
+
+Thanks for reading, and happy hacking 🚀
