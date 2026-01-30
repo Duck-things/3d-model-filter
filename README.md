@@ -248,15 +248,15 @@ Hack Club is a real nonprofit (not a scam lol)
 
 If you’re into:
 
-CAD
+-CAD
 
-Robotics
+-Robotics
 
-Coding
+-Coding
 
-Hardware
+-Hardware
 
-Or just making cool stuff
+Or just making cool stuff!
 
 You should totally check it out. Even if you don’t use my link, still join — but using it would seriously help me out 🫶
 
