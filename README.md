@@ -96,7 +96,7 @@ A browser userscript that detects and filters AI-generated 3D models so you can 
 
 ### AI Tools Database (50+)
 
-Meshy, Tripo, Tripo3D, Rodin, Luma, CSM, Kaedim, Alpha3D, Masterpiece Studio, Spline AI, Point-E, Shap-E, GET3D, DreamFusion, Magic3D, Fantasia3D, Zero123, One-2-3-45, Wonder3D, Instant3D, ThreeStudio, Text2Mesh, DreamGaussian, GSGen, LucidDreamer, 3DFy, Anything World, Leonardo AI, Sloyd, and more...
+Meshy, Tripo, Tripo3D, Rodin, Luma, CSM, Kaedim, Alpha3D, Masterpiece Studio, Spline AI, Point-E, Shap-E, GET3D, DreamFusion, Magic3D, Fantasia3D, Zero123, One-2-3-45, Wonder3D, Instant3D, ThreeStudio, Text2Mesh, DreamGaussian, GSGen, LucidDreamer, 3DFy, Anything World, Leonardo AI, Sloyd, and more... (I will add more soon! Request some if you guys want one that is not listed!)
 
 ### Image Analysis
 
