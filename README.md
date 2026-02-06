@@ -200,6 +200,18 @@ Their HTML structure is inconsistent. Detection works but may miss some cards.
 
 ## Changelog
 
+## v4.0.0
+
+- Complete rewrite
+- Added three detection modes (Basic/Advanced/ML)
+- Added TensorFlow.js ML support
+- Added custom model training support
+- Added whitelist/blacklist with import/export
+- Added floating panel with stats
+- Added score display option
+- Added reason tooltips
+- Improved site detection selectors
+
 ### v3.0.0
 
 - Context-aware text analysis
