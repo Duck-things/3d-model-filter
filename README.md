@@ -1,275 +1,221 @@
-# 3D Print AI Filter
+# 3D Print AI Filter v4.5.0
 
-> Filter out AI-generated models from MakerWorld, Printables, and Thangs
+Filter AI-generated models from 3D printing and model marketplace sites. Comprehensive detection with three modes.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tampermonkey](https://img.shields.io/badge/Tampermonkey-Compatible-green.svg)](https://www.tampermonkey.net/)
-[![Version](https://img.shields.io/badge/Version-3.0.0-blue.svg)](https://github.com/achyutsharma/3d-print-ai-filter)
+![Version](https://img.shields.io/badge/version-4.5.0-blue)
+![Chrome](https://img.shields.io/badge/chrome-extension-green)
+![Sites](https://img.shields.io/badge/sites-9-orange)
 
-## The Problem
+## What's New in v4.5.0
 
-3D model sites are getting flooded with AI-generated content. Low-effort models made with Meshy, Tripo, and similar tools are drowning out quality human-made designs. These AI models often have:
-
-- No print photos (just renders)
-- Generic copy-paste descriptions
-- Untested, unprintable geometry
-- Stolen or AI-generated preview images
-
-## The Solution
-
-A browser userscript that detects and filters AI-generated 3D models so you can find the good stuff.
-
-## Features
-
-| Feature | Description |
-|---------|-------------|
-| **Explicit Detection** | Catches AIGC badges, AI category URLs, explicit tags |
-| **Heuristic Detection** | Analyzes text for AI tool mentions, generation phrases |
-| **Context Awareness** | Won't flag "no AI used" or "I hate AI slop" |
-| **Image Analysis** | Detects AI render characteristics vs real photos |
-| **Quality Filter** | Optional filter for low-effort posts |
-| **Engagement Filter** | Optional min likes/downloads/makes thresholds |
-| **Creator Whitelist** | Trust specific uploaders |
-| **Creator Blacklist** | Block specific uploaders |
-| **Mark as OK** | Correct false positives on individual models |
-| **Import/Export** | Share your lists with others |
+- **4-Tier AI Tool Database** - 150+ AI tools categorized by confidence
+- **Creator Reputation Tracking** - Tracks uploaders and flags repeat AI uploaders
+- **9 Supported Sites** - Added CGTrader, TurboSquid, Sketchfab
+- **Multi-language Support** - Chinese AI tags (ai生成, ai创作)
+- **Suspicious Username Detection** - Catches bot-like usernames
+- **Improved Scoring** - More granular scoring with better calibration
+- **Better MakerWorld Detection** - Fixed card detection and AI badge recognition
 
 ## Supported Sites
 
-| Site | Status |
-|------|--------|
-| MakerWorld | Full support |
-| Printables | Full support |
-| Thangs | Partial support |
+| Site | Status | Notes |
+|------|--------|-------|
+| MakerWorld | ✅ Full | Best detection - has AI tags |
+| Printables | ✅ Full | Good detection |
+| Thangs | ✅ Full | Good detection |
+| Thingiverse | ✅ Full | Classic site |
+| Cults3D | ✅ Full | Marketplace |
+| MyMiniFactory | ✅ Full | Marketplace |
+| CGTrader | ✅ NEW | 3D marketplace |
+| TurboSquid | ✅ NEW | 3D marketplace |
+| Sketchfab | ✅ NEW | 3D viewer/marketplace |
 
-## Quick Start
+## Detection Modes
 
-### Step 1: Install Tampermonkey
+### Basic Mode ⚡
+Fast and accurate for tagged AI models.
 
-| Browser | Link |
-|---------|------|
-| Chrome | [Install](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) |
-| Firefox | [Install](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/) |
-| Edge | [Install](https://microsoftedge.microsoft.com/addons/detail/tampermonkey/iikmkjmpaadaobahmlepeloendndfphd) |
-| Safari | [Install](https://apps.apple.com/us/app/userscripts/id1463298887) |
+**Detects:**
+- AI badges on cards (100% confidence)
+- Tier 0 AI tools: Meshy, Tripo, Rodin, Luma, CSM, Hunyuan, Trellis (+100)
+- Tier 1 AI tools: Kaedim, Alpha3D, 3DFY, Sloyd, Leonardo (+85)
+- Definitive phrases: "ai generated", "text to 3d", "image to 3d" (+95)
+- AI tags in model tags (+95)
 
-### Step 2: Install the Script
+**Human Signals (reduce score):**
+- "Designed by me", "handmade" (-50)
+- CAD software: Blender, Fusion 360, ZBrush (-40)
+- Process terms: "parametric", "test prints" (-30)
 
-**[Click Here to Install](../../raw/main/scripts/3d-print-ai-filter.user.js)**
+### Advanced Mode 🔍
+Everything in Basic plus behavioral analysis.
 
-### Step 3: Browse
+**Additional Detection:**
+- Suspicious title patterns: "3D model of a...", "cute stylized character"
+- Suspicious descriptions: Very short or generic
+- Suspicious usernames: bot-like patterns
+- No engagement flag: 0 likes + few downloads + 0 makes
+- Multiple AI signals stacking bonus
 
-1. Go to MakerWorld, Printables, or Thangs
-2. Panel appears in bottom-right corner
-3. AI models get flagged with colored borders
-4. Hover to see why each was flagged
+**Quality Signals (reduce score):**
+- Makes: 3+ (-12), 10+ (-20), 30+ (-30), 100+ (-40)
+- Likes: 50+ (-10), 200+ (-15), 1000+ (-25)
+- Downloads: 1000+ (-12), 5000+ (-20)
+- Comments: 10+ (-10), 30+ (-18)
+- Print terms: layer height, infill, supports, etc. (-8 to -35)
+- Functional terms: assembly, gears, snap fit, etc. (-8 to -30)
+- Detailed description: 300+ chars (-6), 600+ (-12), 1200+ (-20)
 
-## How Detection Works
+### ML Mode 🤖
+Everything in Advanced plus machine learning.
 
-### Explicit Detection (100% Accurate)
+**Features:**
+- TensorFlow.js neural network
+- 12-feature classification
+- Configurable ML weight
+- Custom model support
 
-- AIGC badges/tags on the model
-- MakerWorld AI category URLs (2000, 2006)
-- Models explicitly marked as AI-generated
+## Scoring System
 
-### Heuristic Detection
+| Score | Status | Display |
+|-------|--------|---------|
+| 65+ | AI Detected | 🤖 Red border + "AI" badge |
+| 33-64 | Suspicious | ⚠️ Yellow border + "SUS" badge |
+| 0-32 | Likely Clean | ✅ Green border (if enabled) |
 
-| Signal | Weight | Example |
-|--------|--------|---------|
-| AI tool mention (positive context) | High | "Made with Meshy" |
-| AI tool mention (ambiguous) | Medium | "Meshy" in description |
-| Generation phrases | High | "Generated this model" |
-| Image-to-3D phrases | High | "Converted from photo" |
-| Text-to-3D phrases | High | "Text to 3D" |
-| Generic AI titles | Low | "Cute Dragon", "3D Model of Cat" |
-| AI render characteristics | Medium | Smooth gradients, uniform backgrounds |
+## AI Tools Database (150+)
 
-### Negative Signals (Reduce Score)
+### Tier 0 - Absolute Certainty
+Meshy, Tripo, Rodin, Luma AI, CSM, Hunyuan, Trellis, InstantMesh
 
-| Signal | Effect |
-|--------|--------|
-| "Designed by me/hand" | -25% |
-| "Hand-made/crafted" | -25% |
-| "Modeled in Blender/Fusion" | -30% |
-| "X hours of work" | -25% |
-| "No AI used" | -35% |
+### Tier 1 - Very High Confidence
+Kaedim, Alpha3D, 3DFY, Sloyd, SudoAI, Masterpiece, Spline AI, Leonardo AI, Anything World, Scenario, Blockade Labs, Stability AI, Genmo, Genie, Clay AI
 
-### AI Tools Database (50+)
+### Tier 2 - High Confidence
+Point-E, Shap-E, Get3D, DreamFusion, Magic3D, Fantasia3D, Zero123, Wonder3D, ThreeStudio, Text2Mesh, DreamGaussian, GSGen, LucidDreamer, DreamCraft3D, SyncDreamer, Neuralangelo, NeRF Studio, and 30+ more
 
-Meshy, Tripo, Tripo3D, Rodin, Luma, CSM, Kaedim, Alpha3D, Masterpiece Studio, Spline AI, Point-E, Shap-E, GET3D, DreamFusion, Magic3D, Fantasia3D, Zero123, One-2-3-45, Wonder3D, Instant3D, ThreeStudio, Text2Mesh, DreamGaussian, GSGen, LucidDreamer, 3DFy, Anything World, Leonardo AI, Sloyd, and more... (I will add more soon! Request some if you guys want one that is not listed!)
+### Tier 3 - Emerging Tools (2024-2025)
+Stable Point, Splat3R, LGM, GRM, Craftsman, MicroDreamer, MVDream, ImageDream, SweetDreamer, RichDreamer, HiFi-123, Magic123, RealFusion, and more
 
-### Image Analysis
+## Installation
 
-The script analyzes thumbnail images for AI render characteristics:
+### Chrome / Edge / Brave / Opera
 
-| Metric | AI Renders | Real Photos |
-|--------|------------|-------------|
-| Smoothness | Very high | Lower (texture) |
-| Color banding | Present | Absent |
-| Edge density | Low | Higher |
-| Background | Uniform/gradient | Varied |
-| Noise | None | Sensor noise |
+1. Download the latest release `.zip`
+2. Unzip to a folder
+3. Go to `chrome://extensions`
+4. Enable **Developer mode** (top right toggle)
+5. Click **Load unpacked**
+6. Select the unzipped folder
+7. Pin the extension to your toolbar
 
-## Settings
+## Usage
 
-### Filter Toggles
+### Floating Panel
+A small panel appears on supported sites showing:
+- AI / SUS / OK counts
+- Current mode
+- Quick rescan button
+- Hide/Show toggle
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| Tagged AI | ON | Filter explicitly tagged AI models |
-| Suspected AI | OFF | Filter heuristically detected AI |
-| Low Quality | OFF | Filter low-effort posts |
-| Engagement | OFF | Filter by likes/downloads/makes |
+### Popup (Click Extension Icon)
+- Switch between Basic/Advanced/ML modes
+- Toggle filter on/off
+- Toggle highlight vs hide mode
+- Toggle score display
+- Rescan current page
 
-### Options
+### Options Page (Right-click → Options)
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| Highlight Only | ON | Show borders instead of hiding |
-| Show Reasons | ON | Show why each model was flagged |
-| Analyze Images | ON | Enable image analysis |
-| Threshold | 65 | Confidence needed to flag (0-100) |
+**Detection:**
+- Filter tagged AI models
+- Filter suspected AI
+- Detection threshold (default 65)
 
-### Engagement Minimums
+**Display:**
+- Highlight only mode
+- Show scores
+- Show detection reasons
 
-When engagement filter is enabled:
+**Lists:**
+- Whitelist (always show)
+- Blacklist (always hide)
+- Import/Export settings
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| Min Likes | 0 | Hide models below this |
-| Min Downloads | 0 | Hide models below this |
-| Min Makes | 0 | Hide models below this |
+**ML Settings:**
+- Custom model URL
+- ML weight (default 35)
 
-## Panel Stats
+## Human Indicators Database
 
-| Stat | Meaning |
-|------|---------|
-| TAG | Explicitly tagged AI |
-| SUS | Suspected AI (heuristics) |
-| LOW | Low quality |
-| ENG | Fails engagement filter |
-| OK | Clean/whitelisted |
+### CAD Software (40+ programs)
+Blender, Fusion 360, SolidWorks, Maya, 3DS Max, ZBrush, Rhino, Cinema 4D, Houdini, FreeCAD, OpenSCAD, TinkerCAD, Onshape, SketchUp, and many more
 
-## Card Actions
+### 3D Printing Terms (100+ terms)
+Tolerance, layer height, infill, supports, bridging, nozzle, bed temp, PLA, PETG, Ender, Prusa, Bambu Lab, Cura, PrusaSlicer, and more
 
-When you hover over a flagged card:
+### Functional/Mechanical Terms (80+ terms)
+Assembly, snap fit, thread, hinge, gear, bearing, spring, LED, PCB, enclosure, mount, bracket, and more
 
-| Button | Action |
-|--------|--------|
-| ok | Mark this specific model as not AI |
-| + | Whitelist this creator |
-| x | Blacklist this creator |
+## Privacy
 
-## Managing Lists
+- Runs entirely locally
+- No data collection
+- No external requests (except TensorFlow CDN in ML mode)
+- Settings in Chrome local storage
 
-Click "manage" to open the list manager:
+## Files
 
-- **Trusted**: Creators whose models are never flagged
-- **Blocked**: Creators whose models are always hidden
-
-Add creators manually or use the card buttons.
-
-### Import/Export
-
-- **Export**: Download your lists as JSON
-- **Import**: Load lists from a JSON file
-
-Share your blacklists with the community!
-
-## FAQ
-
-**Q: A real model got flagged. What do I do?**
-
-Hover over it, click "ok" to mark that model as not AI. Or click "+" to whitelist the creator.
-
-**Q: Some AI models aren't being caught.**
-
-Turn on "Suspected AI" filter and/or lower the threshold. The default is conservative.
-
-**Q: Does this send my data anywhere?**
-
-No. Everything runs 100% locally in your browser.
-
-**Q: Why highlight instead of hide?**
-
-So you can see what's being caught and correct mistakes. You can switch to hide mode in settings.
-
-**Q: Why is Thangs only partial support?**
-
-Their HTML structure is inconsistent. Detection works but may miss some cards.
+```
+3d-ai-filter-ext/
+├── manifest.json          # Extension config (v4.5.0)
+├── background.js          # Service worker
+├── popup.html/js          # Quick settings
+├── options.html/js        # Full settings
+├── content/
+│   ├── loader.js          # Detection engine (~1400 lines)
+│   └── styles.css         # Highlighting styles
+├── lib/
+│   └── tf.min.js          # TensorFlow loader
+├── training/              # ML training resources
+│   ├── TRAINING_GUIDE.md
+│   ├── train.py
+│   ├── convert.py
+│   └── sample_data.csv
+└── icons/                 # Extension icons
+```
 
 ## Changelog
 
-## v4.0.0
+### v4.5.0 (Current)
+- Complete detection engine rewrite
+- 4-tier AI tool database (150+ tools)
+- Creator reputation tracking
+- Added CGTrader, TurboSquid, Sketchfab support
+- Multi-language AI tag detection
+- Suspicious username detection
+- Improved scoring calibration
+- Better engagement analysis
+- More human indicator categories
+- Fixed MakerWorld AI badge detection
 
-- Complete rewrite
-- Added three detection modes (Basic/Advanced/ML)
-- Added TensorFlow.js ML support
-- Added custom model training support
-- Added whitelist/blacklist with import/export
-- Added floating panel with stats
-- Added score display option
-- Added reason tooltips
-- Improved site detection selectors
+### v3.x
+- Three detection modes
+- ML support with TensorFlow.js
+- Whitelist/blacklist
+- 6 supported sites
 
-### v3.0.0
-
-- Context-aware text analysis
-- Image analysis for AI render detection
-- Quality scoring system
-- Engagement filters
-- Creator whitelist/blacklist
-- Mark individual models as OK
-- Import/export functionality
-- "Why flagged" tooltips
-
-### v2.0.0
-
+### v2.x
 - Heuristic detection
-- 50+ AI tools database
-- Configurable threshold
+- Basic tag matching
 
-### v1.0.0
+### v1.x
+- Initial release
 
-- Basic AIGC tag detection
-- MakerWorld support
+## License
 
-## Contributing
+MIT License
 
-Found a bug? Know an AI tool that should be added? Open an issue.
+---
 
-## HackClub!
-I’m 13 years old and I just joined this thing called Hack Club Flavortown, and it’s honestly really cool so I wanted to share.
-
-Flavortown is a Hack Club event where teens (13–18) work on CAD, hardware, and personal projects, and you earn shards for building stuff. You can then spend those shards in the Hack Club shop on real hardware 👀 like Raspberry Pi 5s, parts, tools, etc.
-
-I’m currently working on robotics projects (I built a robot that detects falls for seniors), and I REALLY want to get a Raspberry Pi 5 so I can keep building and improving my projects. The only way I can do that is by earning shards through Flavortown.
-
-If you sign up using my referral link, it helps me get closer to that goal 🙏
-👉 https://flavortown.hack.club/?ref=BZJXIBQ9
-
-What I like about the event:
-
-It’s actually made for teens, not adults
-
-You work on real projects, not boring tutorials
-
-You get rewarded for building, not just watching videos
-
-Hack Club is a real nonprofit (not a scam lol)
-
-If you’re into:
-
--CAD
-
--Robotics
-
--Coding
-
--Hardware
-
-Or just making cool stuff!
-
-You should totally check it out. Even if you don’t use my link, still join — but using it would seriously help me out 🫶
-
-Thanks for reading, and happy hacking 🚀
+Made for the 3D printing community by someone tired of AI spam 🖨️
